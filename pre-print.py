@@ -19,22 +19,23 @@ def main():
     GPIO.add_event_detect(SWITCH_PIN, GPIO.FALLING,
                           callback=button_pressed_callback, bouncetime=100)
 
-    raised_stop = False
-    # Add 10 to let the micro switch do the jobs
-    try:
-        motor.move_motor(int(motor.STEPS_PER_LOOP / 2), False)
-    except StopMotorInterrupt:
-        raised_stop = True
+    raised_stop = GPIO.input(SWITCH_PIN)
 
-    if not raised_stop:
+    if raised_stop:
         try:
-            motor.move_motor(int(motor.STEPS_PER_LOOP / 2), True)
+            motor.move_motor(int(motor.STEPS_PER_LOOP / 2), False)
         except StopMotorInterrupt:
-            pass
-        else:
-            raise SystemError
-        finally:
-            motor.disable_stepper()
+            raised_stop = True
+
+        if not raised_stop:
+            try:
+                motor.move_motor(int(motor.STEPS_PER_LOOP / 2), True)
+            except StopMotorInterrupt:
+                pass
+            else:
+                raise SystemError
+            finally:
+                motor.disable_stepper()
 
 
 main()
