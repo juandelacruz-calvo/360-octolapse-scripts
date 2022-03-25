@@ -2,7 +2,9 @@ import RPi.GPIO as GPIO
 import time
 from RpiMotorLib import RpiMotorLib
 
-SAFETY_DISTANCE = 200
+EXTRA_STEPS_RETURNING = 25
+
+SAFETY_DISTANCE = 150
 
 direction = 22  # Direction (DIR) GPIO Pin
 step = 23  # Step GPIO Pin
@@ -40,7 +42,7 @@ def move_motor(steps, pre_snapshot):
         move_pre_snapshot(clockwise, scaled_steps)
     else:
         # Add a safety net to make sure the switch works
-        scaled_steps = scaled_steps + 25
+        scaled_steps = scaled_steps + EXTRA_STEPS_RETURNING
         move_post_snapshot(clockwise, scaled_steps)
     time.sleep(0.25)
     GPIO.output(EN_pin, GPIO.HIGH)
