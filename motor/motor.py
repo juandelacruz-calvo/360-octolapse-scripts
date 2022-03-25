@@ -10,6 +10,8 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(EN_pin, GPIO.OUT)  # set enable pin as output
 GPIO.output(EN_pin, GPIO.HIGH)
+GPIO.setup(pin, GPIO.OUT)
+GPIO.output(pin, False)
 
 stepper = RpiMotorLib.A4988Nema(direction, step, (-1, -1, -1), "DRV8825")
 
@@ -37,14 +39,46 @@ def move_motor(steps, pre_snapshot):
         scaled_steps = scaled_steps + 100
 
     GPIO.output(EN_pin, GPIO.LOW)  # pull enable to low to enable motor
+
+    if pre_snapshot:
+        move_pre_snapshot(clockwise, scaled_steps)
+    else:
+        move_post_snapshot(clockwise, scaled_steps)
+    time.sleep(0.25)
+    GPIO.output(EN_pin, GPIO.HIGH)
+
+
+def move_pre_snapshot(clockwise, scaled_steps):
     stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
                      "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
                      scaled_steps,  # number of steps
                      .0005,  # step delay [sec]
                      False,  # True = print verbose output
                      .05)  # initial delay [sec]
-    time.sleep(0.25)
-    GPIO.output(EN_pin, GPIO.HIGH)
+
+
+def move_post_snapshot(clockwise, scaled_steps):
+
+    if scaled_steps > 50:
+        stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
+                         "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                         scaled_steps - 50,  # number of steps
+                         .0005,  # step delay [sec]
+                         False,  # True = print verbose output
+                         .05)  # initial delay [sec]
+        stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
+                         "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                         50,  # number of steps
+                         .001,  # step delay [sec]
+                         False,  # True = print verbose output
+                         .05)  # initial delay [sec]
+    else:
+        stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
+                         "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                         scaled_steps,  # number of steps
+                         .001,  # step delay [sec]
+                         False,  # True = print verbose output
+                         .05)  # initial delay [sec]
 
 
 def stop_motor():
