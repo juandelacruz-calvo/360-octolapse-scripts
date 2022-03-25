@@ -3,7 +3,7 @@ import time
 from RpiMotorLib import RpiMotorLib
 
 FAST_SPEED = .0005
-SLOW_SPEED = .002
+SLOW_SPEED = .001
 EXTRA_STEPS_RETURNING = 25
 SAFETY_DISTANCE = 150
 
