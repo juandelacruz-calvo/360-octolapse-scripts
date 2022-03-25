@@ -2,8 +2,9 @@ import RPi.GPIO as GPIO
 import time
 from RpiMotorLib import RpiMotorLib
 
+FAST_SPEED = .0005
+SLOW_SPEED = .002
 EXTRA_STEPS_RETURNING = 25
-
 SAFETY_DISTANCE = 150
 
 direction = 22  # Direction (DIR) GPIO Pin
@@ -63,20 +64,20 @@ def move_post_snapshot(clockwise, scaled_steps):
         stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
                          "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          scaled_steps - SAFETY_DISTANCE,  # number of steps
-                         .0005,  # step delay [sec]
+                         FAST_SPEED,  # step delay [sec]
                          False,  # True = print verbose output
                          .05)  # initial delay [sec]
         stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
                          "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          SAFETY_DISTANCE,  # number of steps
-                         .0015,  # step delay [sec]
+                         SLOW_SPEED,  # step delay [sec]
                          False,  # True = print verbose output
                          0)  # initial delay [sec]
     else:
         stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
                          "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          scaled_steps,  # number of steps
-                         .0015,  # step delay [sec]
+                         SLOW_SPEED,  # step delay [sec]
                          False,  # True = print verbose output
                          .05)  # initial delay [sec]
 
