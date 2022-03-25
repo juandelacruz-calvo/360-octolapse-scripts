@@ -10,8 +10,6 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(EN_pin, GPIO.OUT)  # set enable pin as output
 GPIO.output(EN_pin, GPIO.HIGH)
-GPIO.setup(pin, GPIO.OUT)
-GPIO.output(pin, False)
 
 stepper = RpiMotorLib.A4988Nema(direction, step, (-1, -1, -1), "DRV8825")
 
