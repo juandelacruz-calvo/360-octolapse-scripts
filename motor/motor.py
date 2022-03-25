@@ -32,15 +32,13 @@ def move_motor(steps, pre_snapshot):
     # Reverse the step of it's post snapshot
     clockwise = not clockwise if pre_snapshot is False else clockwise
 
-    if not pre_snapshot:
-        # Add a safety net to make sure the switch works
-        scaled_steps = scaled_steps + 100
-
     GPIO.output(EN_pin, GPIO.LOW)  # pull enable to low to enable motor
 
     if pre_snapshot:
         move_pre_snapshot(clockwise, scaled_steps)
     else:
+        # Add a safety net to make sure the switch works
+        scaled_steps = scaled_steps + 25
         move_post_snapshot(clockwise, scaled_steps)
     time.sleep(0.25)
     GPIO.output(EN_pin, GPIO.HIGH)
