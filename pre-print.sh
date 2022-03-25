@@ -1,2 +1,2 @@
 #!/bin/sh
-/home/pi/oprint/bin/python3 /home/pi/.octoprint/scripts/pre-print.py
+/home/pi/oprint/bin/python3 ~/.octoprint/scripts/360-octolapse-scripts/pre-print.py
