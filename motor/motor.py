@@ -55,16 +55,16 @@ def move_pre_snapshot(clockwise, scaled_steps):
 
 def move_post_snapshot(clockwise, scaled_steps):
 
-    if scaled_steps > 50:
+    if scaled_steps > 250:
         stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
                          "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                         scaled_steps - 50,  # number of steps
+                         scaled_steps - 250,  # number of steps
                          .0005,  # step delay [sec]
                          False,  # True = print verbose output
                          .05)  # initial delay [sec]
         stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
                          "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                         50,  # number of steps
+                         250,  # number of steps
                          .001,  # step delay [sec]
                          False,  # True = print verbose output
                          .05)  # initial delay [sec]
