@@ -19,7 +19,7 @@ def test_something():
     while True:
         if switch.is_camera_in_home():
             print("triggered")
-            time.sleep(0.05)
+            time.sleep(0.01)
 
 
 if __name__ == "__main__":
