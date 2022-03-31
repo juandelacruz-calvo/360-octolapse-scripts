@@ -1,3 +1,5 @@
+import time
+
 import RPi.GPIO as GPIO
 
 from motor import motor
@@ -17,6 +19,7 @@ def enable_switch_hook():
 
 def disable_switch_hook():
     GPIO.remove_event_detect(SWITCH_PIN)
+    time.sleep(0.5)
 
 
 def button_pressed_callback(channel):
