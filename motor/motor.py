@@ -13,12 +13,10 @@ direction = 22  # Direction (DIR) GPIO Pin
 step = 23  # Step GPIO Pin
 EN_pin = 24  # enable pin (LOW to enable)
 
-
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(EN_pin, GPIO.OUT)  # set enable pin as output
 GPIO.output(EN_pin, GPIO.HIGH)
-
 
 stepper = RpiMotorLib.A4988Nema(direction, step, (-1, -1, -1), "DRV8825")
 
@@ -49,8 +47,6 @@ def move_motor(steps, pre_snapshot):
         # Add a safety net to make sure the switch works
         scaled_steps = scaled_steps + EXTRA_STEPS_RETURNING
         move_post_snapshot(clockwise, scaled_steps)
-    time.sleep(0.25)
-    disable_stepper()
 
 
 def move_pre_snapshot(clockwise, scaled_steps):
@@ -66,12 +62,16 @@ def move_post_snapshot(clockwise, scaled_steps):
 
 
 def motor_go(clockwise: bool, absolute_steps: int, fast: bool = True, initial_delay: float = .05):
-    stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
-                     "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                     absolute_steps,  # number of steps
-                     FAST_SPEED if fast else SLOW_SPEED,  # step delay [sec]
-                     False,  # True = print verbose output
-                     initial_delay)  # initial delay [sec]
+    try:
+        stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
+                         "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                         absolute_steps,  # number of steps
+                         FAST_SPEED if fast else SLOW_SPEED,  # step delay [sec]
+                         False,  # True = print verbose output
+                         initial_delay)  # initial delay [sec]
+    finally:
+        time.sleep(0.25)
+        disable_stepper()
 
 
 def stop_motor():

@@ -25,7 +25,6 @@ def pre_print():
                 raise SystemError
             finally:
                 switch.disable_switch_hook()
-                motor.disable_stepper()
         else:
             switch.disable_switch_hook()
 
