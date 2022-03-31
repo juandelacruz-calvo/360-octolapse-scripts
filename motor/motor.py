@@ -38,7 +38,7 @@ def move_motor(steps, pre_snapshot):
     clockwise = not clockwise if pre_snapshot is False else clockwise
 
     GPIO.output(EN_pin, GPIO.LOW)  # pull enable to low to enable motor
-
+    stepper.stop_motor = False
     if pre_snapshot:
         move_pre_snapshot(clockwise, scaled_steps)
     else:
