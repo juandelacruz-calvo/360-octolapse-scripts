@@ -23,7 +23,6 @@ def post_snapshot(snapshot_number: int):
             pass
         else:
             pre_print.pre_print(False)
-            raise SystemError
 
 
 if __name__ == "__main__":
