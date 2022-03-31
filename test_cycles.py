@@ -16,9 +16,12 @@ def post_result(steps, success):
 
 
 def test_something():
+    print("call pre print")
     pre_print.pre_print()
+    print("Starting script")
     while True:
         steps = randint(0, 799)
+        print("Random steps: %d" % steps)
         try:
             import pre_snapshot
             pre_snapshot.pre_snapshot(steps)
