@@ -46,7 +46,7 @@ def move_motor(steps, pre_snapshot):
         scaled_steps = scaled_steps + EXTRA_STEPS_RETURNING
         move_post_snapshot(clockwise, scaled_steps)
     time.sleep(0.25)
-    GPIO.output(EN_pin, GPIO.HIGH)
+    disable_stepper()
 
 
 def move_pre_snapshot(clockwise, scaled_steps):

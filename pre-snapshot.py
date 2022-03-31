@@ -13,9 +13,9 @@ import motor.motor as motor
 # SNAPSHOT_FULL_PATH=$6
 
 
-def main():
-    snapshot_number = int(sys.argv[1])
+def pre_snapshot(snapshot_number: int):
     motor.move_motor(snapshot_number, True)
 
 
-main()
+if __name__ == "__main__":
+    pre_snapshot(int(sys.argv[1]))
