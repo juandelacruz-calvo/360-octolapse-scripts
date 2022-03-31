@@ -18,7 +18,7 @@ def pre_print():
             is_homed = True
         if not is_homed:
             try:
-                motor.move_motor(False, int(motor.STEPS_PER_LOOP / 2))
+                motor.motor_go(False, int(motor.STEPS_PER_LOOP / 2))
             except StopMotorInterrupt:
                 pass
             else:
