@@ -28,17 +28,19 @@ def button_pressed_callback(channel):
 def main():
     snapshot_number = int(sys.argv[1])
     GPIO.add_event_detect(SWITCH_PIN, GPIO.FALLING,
-                          callback=button_pressed_callback, bouncetime=100)
-
-    try:
-        # Add 10 to let the micro switch do the jobs
-        motor.move_motor(snapshot_number, False)
-    except StopMotorInterrupt:
-        pass
-    else:
-        raise SystemError
-    finally:
-        motor.disable_stepper()
+                          callback=button_pressed_callback, bouncetime=50)
+    
+    raised_stop = GPIO.input(SWITCH_PIN)
+    if raised_stop:
+        try:
+       	# Add 10 to let the micro switch do the jobs
+            motor.move_motor(snapshot_number, False)
+        except StopMotorInterrupt:
+       	    pass
+        else:
+            raise SystemError
+        finally:
+            motor.disable_stepper()
 
 
 main()
