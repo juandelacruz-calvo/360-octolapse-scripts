@@ -1,6 +1,8 @@
 import time
-import pre_snapshot
-import post_snapshot
+import scripts.pre_snapshot
+import scripts.post_snapshot
+
+from motor import  motor
 from random import randint
 
 # import pre_snapshot
