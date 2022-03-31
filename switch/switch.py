@@ -6,9 +6,6 @@ from motor import motor
 
 SWITCH_PIN = 27
 
-GPIO.setup(SWITCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-
 def button_pressed_callback(channel):
     print("switch triggered")
     motor.stop_motor()
@@ -16,8 +13,10 @@ def button_pressed_callback(channel):
 
 def enable_switch_hook():
     try:
+        GPIO.setup(SWITCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        time.sleep(0.1)
         GPIO.add_event_detect(SWITCH_PIN, GPIO.FALLING,
-                              callback=button_pressed_callback, bouncetime=200)
+                              callback=button_pressed_callback, bouncetime=50)
     except RuntimeError as err:
         print("Error enabling switch: %s" % err)
 
