@@ -1,5 +1,7 @@
-import RPi.GPIO as GPIO
 import time
+
+import RPi.GPIO as GPIO
+
 from RpiMotorLib import RpiMotorLib
 
 FAST_SPEED = .0005
@@ -50,36 +52,24 @@ def move_motor(steps, pre_snapshot):
 
 
 def move_pre_snapshot(clockwise, scaled_steps):
-    stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
-                     "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                     scaled_steps,  # number of steps
-                     .0005,  # step delay [sec]
-                     False,  # True = print verbose output
-                     .05)  # initial delay [sec]
+    motor_go(clockwise, scaled_steps, True, .05)
 
 
 def move_post_snapshot(clockwise, scaled_steps):
-
     if scaled_steps > SAFETY_DISTANCE:
-        stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
-                         "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                         scaled_steps - SAFETY_DISTANCE,  # number of steps
-                         FAST_SPEED,  # step delay [sec]
-                         False,  # True = print verbose output
-                         .05)  # initial delay [sec]
-        stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
-                         "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                         SAFETY_DISTANCE,  # number of steps
-                         SLOW_SPEED,  # step delay [sec]
-                         False,  # True = print verbose output
-                         0)  # initial delay [sec]
+        motor_go(clockwise, scaled_steps - SAFETY_DISTANCE, True, .05)
+        motor_go(clockwise, SAFETY_DISTANCE, False, )
     else:
-        stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
-                         "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                         scaled_steps,  # number of steps
-                         SLOW_SPEED,  # step delay [sec]
-                         False,  # True = print verbose output
-                         .05)  # initial delay [sec]
+        motor_go(clockwise, scaled_steps, False, .05)
+
+
+def motor_go(clockwise: bool, absolute_steps: int, fast: bool = True, initial_delay: float = .05):
+    stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
+                     "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                     absolute_steps,  # number of steps
+                     FAST_SPEED if fast else SLOW_SPEED,  # step delay [sec]
+                     False,  # True = print verbose output
+                     initial_delay)  # initial delay [sec]
 
 
 def stop_motor():

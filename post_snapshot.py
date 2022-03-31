@@ -1,9 +1,10 @@
-import RPi.GPIO as GPIO
-from . import pre_print
 import sys
-from RpiMotorLib.RpiMotorLib import StopMotorInterrupt
+
+import RPi.GPIO as GPIO
 
 import motor.motor as motor
+import pre_print
+from RpiMotorLib.RpiMotorLib import StopMotorInterrupt
 
 SWITCH_PIN = 27
 

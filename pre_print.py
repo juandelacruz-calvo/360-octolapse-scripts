@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
-from RpiMotorLib.RpiMotorLib import StopMotorInterrupt
 
 import motor.motor as motor
+from RpiMotorLib.RpiMotorLib import StopMotorInterrupt
 
 SWITCH_PIN = 27
 
@@ -22,12 +22,12 @@ def pre_print():
 
     if raised_stop:
         try:
-            motor.move_motor(int(motor.STEPS_PER_LOOP / 2), False)
+            motor.motor_go(True, int(motor.STEPS_PER_LOOP / 2))
         except StopMotorInterrupt:
             raised_stop = True
         if not raised_stop:
             try:
-                motor.move_motor(int(motor.STEPS_PER_LOOP / 2), True)
+                motor.move_motor(False, int(motor.STEPS_PER_LOOP / 2))
             except StopMotorInterrupt:
                 pass
             else:
