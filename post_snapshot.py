@@ -1,5 +1,6 @@
-import RPi.GPIO as GPIO
 import sys
+
+import RPi.GPIO as GPIO
 from RpiMotorLib.RpiMotorLib import StopMotorInterrupt
 
 import motor.motor as motor

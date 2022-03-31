@@ -1,7 +1,8 @@
 import time
 from random import randint
 
-from . import post_snapshot, pre_snapshot
+import post_snapshot
+import pre_snapshot
 
 ITEMS_PER_LINE = 8
 
