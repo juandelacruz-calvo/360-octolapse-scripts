@@ -1,8 +1,7 @@
 import time
 from random import randint
 
-
-
+import pre_print
 
 ITEMS_PER_LINE = 8
 
@@ -17,6 +16,7 @@ def post_result(steps, success):
 
 
 def test_something():
+    pre_print.pre_print()
     while True:
         steps = randint(0, 799)
         try:
