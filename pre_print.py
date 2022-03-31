@@ -14,7 +14,7 @@ def button_pressed_callback(channel):
     motor.stop_motor()
 
 
-def main():
+def pre_print():
     GPIO.add_event_detect(SWITCH_PIN, GPIO.FALLING,
                           callback=button_pressed_callback, bouncetime=100)
 
@@ -35,6 +35,8 @@ def main():
                 raise SystemError
             finally:
                 motor.disable_stepper()
+                GPIO.remove_event_detect(SWITCH_PIN)
 
 
-main()
+if __name__ == "__main__":
+    pre_print()

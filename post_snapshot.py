@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+from . import pre_print
 import sys
 from RpiMotorLib.RpiMotorLib import StopMotorInterrupt
 
@@ -27,6 +28,7 @@ def post_snapshot(snapshot_number: int):
         except StopMotorInterrupt:
             pass
         else:
+            pre_print.pre_print()
             raise SystemError
         finally:
             motor.disable_stepper()
