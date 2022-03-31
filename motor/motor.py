@@ -54,12 +54,12 @@ def move_motor(steps, pre_snapshot):
 
 
 def move_pre_snapshot(clockwise, scaled_steps):
-    motor_go(clockwise, scaled_steps, True)
+    motor_go(clockwise, scaled_steps)
 
 
 def move_post_snapshot(clockwise, scaled_steps):
     if scaled_steps > SAFETY_DISTANCE:
-        motor_go(clockwise, scaled_steps - SAFETY_DISTANCE, True)
+        motor_go(clockwise, scaled_steps - SAFETY_DISTANCE)
         motor_go(clockwise, SAFETY_DISTANCE, False, 0)
     else:
         motor_go(clockwise, scaled_steps, False)
