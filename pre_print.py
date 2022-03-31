@@ -25,7 +25,6 @@ def pre_print():
             motor.move_motor(int(motor.STEPS_PER_LOOP / 2), False)
         except StopMotorInterrupt:
             raised_stop = True
-
         if not raised_stop:
             try:
                 motor.move_motor(int(motor.STEPS_PER_LOOP / 2), True)
@@ -34,8 +33,8 @@ def pre_print():
             else:
                 raise SystemError
             finally:
-                motor.disable_stepper()
                 GPIO.remove_event_detect(SWITCH_PIN)
+                motor.disable_stepper()
 
 
 if __name__ == "__main__":
