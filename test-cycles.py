@@ -1,11 +1,8 @@
 import time
-import scripts.pre_snapshot
-import scripts.post_snapshot
-
-from motor import  motor
 from random import randint
 
-# import pre_snapshot
+from . import post_snapshot, pre_snapshot
+
 ITEMS_PER_LINE = 8
 
 steps_results = list()

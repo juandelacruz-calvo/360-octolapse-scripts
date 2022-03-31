@@ -4,14 +4,6 @@ from RpiMotorLib.RpiMotorLib import StopMotorInterrupt
 
 import motor.motor as motor
 
-# SNAPSHOT_NUMBER=$1
-# DELAY_SECONDS=$2
-# DATA_DIRECTORY=$3
-# SNAPSHOT_DIRECTORY=$4
-# SNAPSHOT_FILENAME=$5
-# SNAPSHOT_FULL_PATH=$6
-
-
 SWITCH_PIN = 27
 
 GPIO.setwarnings(False)
