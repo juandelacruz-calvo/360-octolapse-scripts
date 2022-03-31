@@ -10,15 +10,14 @@ GPIO.setmode(GPIO.BCM)
 
 def pre_print():
     switch.enable_switch_hook()
+    is_homed = switch.is_camera_in_home()
 
-    raised_stop = switch.is_switch_on()
-
-    if raised_stop:
+    if is_homed:
         try:
             motor.motor_go(True, int(motor.STEPS_PER_LOOP / 2))
         except StopMotorInterrupt:
-            raised_stop = True
-        if not raised_stop:
+            is_homed = True
+        if not is_homed:
             try:
                 motor.move_motor(False, int(motor.STEPS_PER_LOOP / 2))
             except StopMotorInterrupt:

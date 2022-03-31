@@ -14,7 +14,7 @@ GPIO.setmode(GPIO.BCM)
 def post_snapshot(snapshot_number: int):
     switch.enable_switch_hook()
 
-    raised_stop = switch.is_switch_on()
+    raised_stop = switch.is_camera_in_home()
     if raised_stop:
         try:
             # Add 10 to let the micro switch do the jobs

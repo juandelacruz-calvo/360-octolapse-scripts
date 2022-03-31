@@ -26,5 +26,5 @@ def button_pressed_callback(channel):
     motor.stop_motor()
 
 
-def is_switch_on() -> bool:
-    return GPIO.input(SWITCH_PIN)
+def is_camera_in_home() -> bool:
+    return not GPIO.input(SWITCH_PIN)
