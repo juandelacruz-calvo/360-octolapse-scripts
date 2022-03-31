@@ -19,7 +19,8 @@ def post_result(steps, success):
 def test_something():
     switch.enable_switch_hook()
     while True:
-        print(switch.is_camera_in_home())
+        if switch.is_camera_in_home():
+        print("triggered")
 
 
 if __name__ == "__main__":
