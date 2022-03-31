@@ -20,7 +20,7 @@ def test_something():
     switch.enable_switch_hook()
     while True:
         if switch.is_camera_in_home():
-        print("triggered")
+            print("triggered")
 
 
 if __name__ == "__main__":
