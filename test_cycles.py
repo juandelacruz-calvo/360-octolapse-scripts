@@ -1,8 +1,8 @@
 import time
 from random import randint
 
-import post_snapshot
-import pre_snapshot
+
+
 
 ITEMS_PER_LINE = 8
 
@@ -20,7 +20,9 @@ def test_something():
     while True:
         steps = randint(0, 799)
         try:
+            import pre_snapshot
             pre_snapshot.pre_snapshot(steps)
+            import post_snapshot
             post_snapshot.post_snapshot(steps)
             post_result(steps, True)
 
