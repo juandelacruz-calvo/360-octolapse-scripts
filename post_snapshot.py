@@ -24,8 +24,6 @@ def post_snapshot(snapshot_number: int):
         else:
             pre_print.pre_print()
             raise SystemError
-        finally:
-            motor.disable_stepper()
 
 
 if __name__ == "__main__":
