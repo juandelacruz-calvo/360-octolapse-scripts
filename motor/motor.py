@@ -13,10 +13,12 @@ direction = 22  # Direction (DIR) GPIO Pin
 step = 23  # Step GPIO Pin
 EN_pin = 24  # enable pin (LOW to enable)
 
+
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(EN_pin, GPIO.OUT)  # set enable pin as output
 GPIO.output(EN_pin, GPIO.HIGH)
+
 
 stepper = RpiMotorLib.A4988Nema(direction, step, (-1, -1, -1), "DRV8825")
 

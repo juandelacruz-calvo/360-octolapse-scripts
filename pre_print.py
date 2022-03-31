@@ -2,23 +2,16 @@ import RPi.GPIO as GPIO
 
 import motor.motor as motor
 from RpiMotorLib.RpiMotorLib import StopMotorInterrupt
-
-SWITCH_PIN = 27
+from switch import switch
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(SWITCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-
-def button_pressed_callback(channel):
-    motor.stop_motor()
 
 
 def pre_print():
-    GPIO.add_event_detect(SWITCH_PIN, GPIO.FALLING,
-                          callback=button_pressed_callback, bouncetime=100)
+    switch.enable_switch_hook()
 
-    raised_stop = GPIO.input(SWITCH_PIN)
+    raised_stop = switch.is_switch_on()
 
     if raised_stop:
         try:
@@ -33,8 +26,10 @@ def pre_print():
             else:
                 raise SystemError
             finally:
-                GPIO.remove_event_detect(SWITCH_PIN)
+                switch.disable_switch_hook()
                 motor.disable_stepper()
+        else:
+            switch.disable_switch_hook()
 
 
 if __name__ == "__main__":
