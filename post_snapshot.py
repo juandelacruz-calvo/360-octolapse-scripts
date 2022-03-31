@@ -29,6 +29,7 @@ def post_snapshot(snapshot_number: int):
         except StopMotorInterrupt:
             pass
         else:
+            GPIO.remove_event_detect(SWITCH_PIN)
             pre_print.pre_print()
             raise SystemError
         finally:
