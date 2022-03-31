@@ -22,7 +22,7 @@ def post_snapshot(snapshot_number: int):
         except StopMotorInterrupt:
             pass
         else:
-            pre_print.pre_print()
+            pre_print.pre_print(False)
             raise SystemError
 
 
