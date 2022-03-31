@@ -27,4 +27,4 @@ def disable_switch_hook():
 
 
 def is_camera_in_home() -> bool:
-    return GPIO.input(SWITCH_PIN)
+    return not GPIO.input(SWITCH_PIN)
