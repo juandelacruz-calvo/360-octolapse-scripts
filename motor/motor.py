@@ -39,8 +39,6 @@ def move_motor(steps, pre_snapshot):
     # Reverse the step of it's post snapshot
     clockwise = not clockwise if pre_snapshot is False else clockwise
 
-    GPIO.output(EN_pin, GPIO.LOW)  # pull enable to low to enable motor
-
     if pre_snapshot:
         move_pre_snapshot(clockwise, scaled_steps)
     else:
@@ -62,6 +60,7 @@ def move_post_snapshot(clockwise, scaled_steps):
 
 
 def motor_go(clockwise: bool, absolute_steps: int, fast: bool = True, initial_delay: float = .05):
+    GPIO.output(EN_pin, GPIO.LOW)  # pull enable to low to enable motor
     try:
         stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
                          "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
