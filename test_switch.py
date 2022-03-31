@@ -1,7 +1,5 @@
 import time
-from random import randint
 
-import pre_print
 from switch import switch
 
 ITEMS_PER_LINE = 8
@@ -21,6 +19,7 @@ def test_something():
     while True:
         if switch.is_camera_in_home():
             print("triggered")
+            time.sleep(0.05)
 
 
 if __name__ == "__main__":
