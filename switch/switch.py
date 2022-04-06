@@ -6,9 +6,11 @@ from motor import motor
 
 SWITCH_PIN = 27
 
+
 def button_pressed_callback(channel):
     print("switch triggered")
     motor.stop_motor()
+    disable_switch_hook()
 
 
 def enable_switch_hook():
