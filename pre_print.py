@@ -7,7 +7,7 @@ from switch import switch
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
-STEPS_PER_SIDE = motor.STEPS_PER_LOOP / 2 + motor.STEPS_PER_LOOP / 4
+STEPS_PER_SIDE = motor.STEPS_PER_LOOP / 2 + motor.STEPS_PER_LOOP / 8
 
 
 def pre_print(enable_hook: bool = True):
@@ -23,7 +23,7 @@ def pre_print(enable_hook: bool = True):
                 is_homed = True
             if not is_homed:
                 try:
-                    motor.motor_go(True, int(STEPS_PER_SIDE))
+                    motor.motor_go(True, int(STEPS_PER_SIDE * 2))
                 except StopMotorInterrupt:
                     pass
                 else:
