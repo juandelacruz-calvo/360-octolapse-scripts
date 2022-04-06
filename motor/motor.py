@@ -38,13 +38,17 @@ def move_motor(steps, pre_snapshot):
 
     # Reverse the step of it's post snapshot
     clockwise = not clockwise if pre_snapshot is False else clockwise
+    try:
 
-    if pre_snapshot:
-        move_pre_snapshot(clockwise, scaled_steps)
-    else:
-        # Add a safety net to make sure the switch works
-        scaled_steps = scaled_steps + EXTRA_STEPS_RETURNING
-        move_post_snapshot(clockwise, scaled_steps)
+        if pre_snapshot:
+            move_pre_snapshot(clockwise, scaled_steps)
+        else:
+            # Add a safety net to make sure the switch works
+            scaled_steps = scaled_steps + EXTRA_STEPS_RETURNING
+            move_post_snapshot(clockwise, scaled_steps)
+    finally:
+        time.sleep(0.25)
+        disable_stepper()
 
 
 def move_pre_snapshot(clockwise, scaled_steps):
@@ -61,16 +65,12 @@ def move_post_snapshot(clockwise, scaled_steps):
 
 def motor_go(clockwise: bool, absolute_steps: int, fast: bool = True, initial_delay: float = .05):
     GPIO.output(EN_pin, GPIO.LOW)  # pull enable to low to enable motor
-    try:
-        stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
-                         "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                         absolute_steps,  # number of steps
-                         FAST_SPEED if fast else SLOW_SPEED,  # step delay [sec]
-                         False,  # True = print verbose output
-                         initial_delay)  # initial delay [sec]
-    finally:
-        time.sleep(0.25)
-        disable_stepper()
+    stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
+                     "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                     absolute_steps,  # number of steps
+                     FAST_SPEED if fast else SLOW_SPEED,  # step delay [sec]
+                     False,  # True = print verbose output
+                     initial_delay)  # initial delay [sec]
 
 
 def stop_motor():
