@@ -18,12 +18,12 @@ def pre_print(enable_hook: bool = True):
     if not is_homed:
         try:
             try:
-                motor.motor_go(True, int(STEPS_PER_SIDE))
+                motor.motor_go(False, int(STEPS_PER_SIDE))
             except StopMotorInterrupt:
                 is_homed = True
             if not is_homed:
                 try:
-                    motor.motor_go(False, int(STEPS_PER_SIDE))
+                    motor.motor_go(True, int(STEPS_PER_SIDE))
                 except StopMotorInterrupt:
                     pass
                 else:
