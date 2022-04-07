@@ -41,21 +41,17 @@ def move_motor(steps, pre_snapshot):
     try:
 
         if pre_snapshot:
-            move_pre_snapshot(clockwise, scaled_steps)
+            take_snapshot(clockwise, scaled_steps)
         else:
             # Add a safety net to make sure the switch works
             scaled_steps = scaled_steps + EXTRA_STEPS_RETURNING
-            move_post_snapshot(clockwise, scaled_steps)
+            take_snapshot(clockwise, scaled_steps)
     finally:
         time.sleep(0.25)
         disable_stepper()
 
 
-def move_pre_snapshot(clockwise, scaled_steps):
-    motor_go(clockwise, scaled_steps)
-
-
-def move_post_snapshot(clockwise, scaled_steps):
+def take_snapshot(clockwise, scaled_steps):
     if scaled_steps > SAFETY_DISTANCE:
         motor_go(clockwise, scaled_steps - SAFETY_DISTANCE)
         motor_go(clockwise, SAFETY_DISTANCE, False, 0)
