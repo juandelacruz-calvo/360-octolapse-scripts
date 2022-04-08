@@ -7,8 +7,6 @@ import pre_print
 from RpiMotorLib.RpiMotorLib import StopMotorInterrupt
 from switch import switch
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
 
 
 def post_snapshot(snapshot_number: int):

@@ -4,6 +4,9 @@ import RPi.GPIO as GPIO
 
 from motor import motor
 
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+
 SWITCH_PIN = 27
 
 
