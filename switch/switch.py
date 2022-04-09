@@ -8,6 +8,7 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
 SWITCH_PIN = 27
+GPIO.setup(SWITCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
 def button_pressed_callback(channel):
@@ -19,7 +20,6 @@ def button_pressed_callback(channel):
 
 def enable_switch_hook():
     try:
-        GPIO.setup(SWITCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.add_event_detect(SWITCH_PIN, GPIO.FALLING,
                               callback=button_pressed_callback, bouncetime=50)
         time.sleep(.25)
