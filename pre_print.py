@@ -11,7 +11,8 @@ STEPS_PER_SIDE = motor.STEPS_PER_LOOP / 2 + motor.STEPS_PER_LOOP / 8
 
 
 def pre_print(enable_hook: bool = True):
-    switch.enable_switch_hook()
+    if enable_hook:
+        switch.enable_switch_hook()
 
     is_homed = switch.is_camera_in_home()
     if not is_homed:

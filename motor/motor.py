@@ -49,7 +49,7 @@ def move_motor(steps, pre_snapshot):
             scaled_steps = scaled_steps + EXTRA_STEPS_RETURNING
             take_snapshot(clockwise, scaled_steps)
     finally:
-        time.sleep(0.25)
+        # time.sleep(0.25)
         disable_stepper()
 
 
