@@ -4,10 +4,12 @@ import RPi.GPIO as GPIO
 
 from RpiMotorLib import RpiMotorLib
 
+MULTIPLIER_PAUSE_BETWEEN_STEPS = 1.10
+
 FAST_SPEED = .0005
 SLOW_SPEED = .001
 EXTRA_STEPS_RETURNING = 25
-SAFETY_DISTANCE = 150
+SAFETY_DISTANCE = 150  # Has to be multiple of 5
 
 direction = 22  # Direction (DIR) GPIO Pin
 step = 23  # Step GPIO Pin
@@ -54,7 +56,7 @@ def move_motor(steps, pre_snapshot):
 def take_snapshot(clockwise, scaled_steps):
     if scaled_steps > SAFETY_DISTANCE:
         motor_go(clockwise, scaled_steps - SAFETY_DISTANCE)
-        motor_go(clockwise, SAFETY_DISTANCE, False, 0)
+        motor_decrease_speed(clockwise, SAFETY_DISTANCE)
     else:
         motor_go(clockwise, scaled_steps, False)
 
@@ -67,6 +69,20 @@ def motor_go(clockwise: bool, absolute_steps: int, fast: bool = True, initial_de
                      FAST_SPEED if fast else SLOW_SPEED,  # step delay [sec]
                      False,  # True = print verbose output
                      initial_delay)  # initial delay [sec]
+
+
+def motor_decrease_speed(clockwise: bool, absolute_steps: int):
+    GPIO.output(EN_pin, GPIO.LOW)  # pull enable to low to enable motor
+    base_pause_value = SLOW_SPEED
+    for i in range(int(SAFETY_DISTANCE / 5)):
+        base_pause_value = base_pause_value * MULTIPLIER_PAUSE_BETWEEN_STEPS
+        print("Pause between steps: %d" % base_pause_value)
+        stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
+                         "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                         5,  # number of steps
+                         base_pause_value,
+                         False,  # True = print verbose output
+                         0)  # initial delay [sec]
 
 
 def stop_motor():
