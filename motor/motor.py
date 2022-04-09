@@ -76,7 +76,7 @@ def motor_decrease_speed(clockwise: bool, absolute_steps: int):
     base_pause_value = SLOW_SPEED
     for i in range(int(SAFETY_DISTANCE / 5)):
         base_pause_value = base_pause_value * MULTIPLIER_PAUSE_BETWEEN_STEPS
-        print("Pause between steps: %d" % base_pause_value)
+        print("Pause between steps: %f" % base_pause_value)
         stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
                          "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          5,  # number of steps
