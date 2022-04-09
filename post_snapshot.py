@@ -1,12 +1,9 @@
 import sys
 
-import RPi.GPIO as GPIO
-
 import motor.motor as motor
 import pre_print
 from RpiMotorLib.RpiMotorLib import StopMotorInterrupt
 from switch import switch
-
 
 
 def post_snapshot(snapshot_number: int):
@@ -20,7 +17,10 @@ def post_snapshot(snapshot_number: int):
         except StopMotorInterrupt:
             pass
         else:
-            pre_print.pre_print(False)
+            try:
+                pre_print.pre_print(False)
+            finally:
+                motor.disable_stepper()
 
 
 if __name__ == "__main__":
