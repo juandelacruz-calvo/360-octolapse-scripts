@@ -11,7 +11,7 @@ SWITCH_PIN = 27
 
 
 def button_pressed_callback(channel):
-    print("switch triggered")
+    # print("switch triggered")
     motor.stop_motor()
     disable_switch_hook()
     time.sleep(0.5)

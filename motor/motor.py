@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 
 from RpiMotorLib import RpiMotorLib
 
-MULTIPLIER_PAUSE_BETWEEN_STEPS = 1.005
+MULTIPLIER_PAUSE_BETWEEN_STEPS = 1.006
 
 FAST_SPEED = .0005
 SLOW_SPEED = .0005
@@ -76,7 +76,7 @@ def motor_decrease_speed(clockwise: bool, absolute_steps: int):
     base_pause_value = SLOW_SPEED
     for i in range(absolute_steps):
         base_pause_value = base_pause_value * MULTIPLIER_PAUSE_BETWEEN_STEPS
-        print("Pause between steps: %f" % base_pause_value)
+        # print("Pause between steps: %f" % base_pause_value)
         stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
                          "Full",  # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          1,  # number of steps
