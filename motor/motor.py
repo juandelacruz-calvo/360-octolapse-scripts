@@ -7,9 +7,9 @@ from RpiMotorLib import RpiMotorLib
 MULTIPLIER_PAUSE_BETWEEN_STEPS = 1.1
 
 FAST_SPEED = .0004
-SLOW_SPEED = .005
+SLOW_SPEED = .0004
 EXTRA_STEPS_RETURNING = 20
-SAFETY_DISTANCE = 100  # Has to be multiple of 5
+SAFETY_DISTANCE = 50  # Has to be multiple of 5
 
 direction = 22  # Direction (DIR) GPIO Pin
 step = 23  # Step GPIO Pin
