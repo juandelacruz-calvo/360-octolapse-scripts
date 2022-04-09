@@ -75,6 +75,9 @@ def motor_decrease_speed(clockwise: bool, absolute_steps: int):
     GPIO.output(EN_pin, GPIO.LOW)  # pull enable to low to enable motor
     base_pause_value = SLOW_SPEED
     for i in range(absolute_steps):
+        if stepper.stop_motor:
+            break
+
         base_pause_value = base_pause_value * MULTIPLIER_PAUSE_BETWEEN_STEPS
         # print("Pause between steps: %f" % base_pause_value)
         stepper.motor_go(clockwise,  # True=Clockwise, False=Counter-Clockwise
@@ -82,7 +85,7 @@ def motor_decrease_speed(clockwise: bool, absolute_steps: int):
                          1,  # number of steps
                          base_pause_value,
                          False,  # True = print verbose output
-                         0)  # initial delay [sec]
+                         0)  # initial` delay [sec]
 
 
 def stop_motor():
