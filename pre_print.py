@@ -10,19 +10,19 @@ GPIO.setmode(GPIO.BCM)
 STEPS_PER_SIDE = motor.STEPS_PER_LOOP / 2 + motor.STEPS_PER_LOOP / 8
 
 
-def pre_print(enable_hook: bool = True):
+def pre_print(start_anti_clockwise: bool, enable_hook: bool = True):
     if not switch.is_camera_in_home():
         if enable_hook:
             switch.enable_switch_hook()
         try:
             try:
-                motor.motor_go(False, int(STEPS_PER_SIDE))
+                motor.motor_go(not start_anti_clockwise, int(STEPS_PER_SIDE))
             except StopMotorInterrupt:
                 pass
             else:
                 if switch.is_camera_in_home():
                     try:
-                        motor.motor_go(True, int(STEPS_PER_SIDE * 2))
+                        motor.motor_go(start_anti_clockwise, int(STEPS_PER_SIDE * 2))
                     except StopMotorInterrupt:
                         pass
                     else:
@@ -32,4 +32,4 @@ def pre_print(enable_hook: bool = True):
 
 
 if __name__ == "__main__":
-    pre_print()
+    pre_print(True)

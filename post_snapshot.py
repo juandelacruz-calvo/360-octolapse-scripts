@@ -18,7 +18,7 @@ def post_snapshot(snapshot_number: int):
             pass
         else:
             try:
-                pre_print.pre_print(False)
+                pre_print.pre_print(True, False)
             finally:
                 motor.disable_stepper()
 
