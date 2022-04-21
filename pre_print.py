@@ -29,6 +29,8 @@ def pre_print(start_anti_clockwise: bool, enable_hook: bool = True):
                         raise SystemError
         finally:
             switch.disable_switch_hook()
+            if enable_hook:
+                motor.disable_stepper()
 
 
 if __name__ == "__main__":
