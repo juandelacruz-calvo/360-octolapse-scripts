@@ -1,6 +1,5 @@
-import time
-
 import RPi.GPIO as GPIO
+import time
 
 from motor import motor
 
@@ -12,8 +11,7 @@ GPIO.setup(SWITCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
 def button_pressed_callback(channel):
-    print("switch triggered")
-    if is_camera_in_home():
+    if is_camera_in_home():  # Double check the event is valid
         motor.stop_motor()
         disable_switch_hook()
         time.sleep(1)
@@ -21,7 +19,7 @@ def button_pressed_callback(channel):
 
 def enable_switch_hook():
     try:
-        GPIO.add_event_detect(SWITCH_PIN, GPIO.RISING,
+        GPIO.add_event_detect(SWITCH_PIN, GPIO.FALLING,
                               callback=button_pressed_callback, bouncetime=50)
         time.sleep(.5)
     except RuntimeError as err:
