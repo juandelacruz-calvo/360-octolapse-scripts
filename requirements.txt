@@ -6,4 +6,3 @@
 # works as expected. Requirements can be found in setup.py.
 ###
 RPi.GPIO==0.71
-.
