@@ -20,7 +20,7 @@ def button_pressed_callback(channel):
 
 def enable_switch_hook():
     try:
-        GPIO.add_event_detect(SWITCH_PIN, GPIO.FALLING,
+        GPIO.add_event_detect(SWITCH_PIN, GPIO.RISING,
                               callback=button_pressed_callback, bouncetime=50)
         time.sleep(.25)
     except RuntimeError as err:
