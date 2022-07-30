@@ -12,7 +12,7 @@ GPIO.setup(SWITCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
 def button_pressed_callback(channel):
-    print("switch triggered")
+    print("switch triggered" + channel)
     motor.stop_motor()
     disable_switch_hook()
     time.sleep(0.5)
